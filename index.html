@@ -71,7 +71,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 clamp(20px, 5vw, 80px);
+      gap: 12px;
+      padding: 0 clamp(16px, 5vw, 80px);
       transition: box-shadow var(--transition-fast);
     }
 
@@ -80,6 +81,8 @@
       flex-direction: column;
       gap: 1px;
       text-decoration: none;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .nav__logo-name {
@@ -87,6 +90,9 @@
       font-size: clamp(15px, 2vw, 18px);
       color: var(--color-title);
       line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .nav__logo-role {
@@ -95,6 +101,7 @@
       font-weight: 400;
       letter-spacing: 0.05em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .nav__cta {
@@ -105,6 +112,8 @@
       text-decoration: none;
       padding: 10px 22px;
       border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
       transition: background-color var(--transition-fast),
                   transform var(--transition-fast);
     }
@@ -517,32 +526,110 @@
     /* ---------- НАВИГАЦИЯ: гамбургер-меню (≤1023px) ---------- */
     @media (max-width: 1023px) {
       .nav__menu {
-        position: absolute;
+        display: none;
+        position: fixed;
         top: var(--nav-height);
         left: 0; right: 0;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         gap: 0;
         background-color: var(--color-bg);
         border-bottom: 1px solid rgba(26, 26, 46, 0.08);
-        box-shadow: 0 12px 24px rgba(26, 26, 46, 0.06);
-        padding: 8px clamp(20px, 6vw, 40px) 16px;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height var(--transition-fast);
+        box-shadow: 0 20px 40px rgba(26, 26, 46, 0.10);
+        padding: 12px 20px 20px;
+        z-index: 99;
       }
 
       .nav__menu.is-open {
-        max-height: 320px;
+        display: flex;
+      }
+
+      /* Иконки для каждого пункта меню */
+      .nav__menu li {
+        list-style: none;
       }
 
       .nav__menu-link {
         width: 100%;
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(26, 26, 46, 0.06);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--color-title);
+        transition: background-color var(--transition-fast), color var(--transition-fast);
+      }
+
+      .nav__menu-link::before {
+        content: '';
+        display: block;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background-color: rgba(37, 99, 168, 0.09);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 18px 18px;
+        flex-shrink: 0;
+        transition: background-color var(--transition-fast);
+      }
+
+      /* Иконки через SVG data URI */
+      a[href="#about"].nav__menu-link::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232563A8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 20c0-4 3.6-7 8-7s8 3 8 7'/%3E%3C/svg%3E");
+      }
+
+      a[href="#services"].nav__menu-link::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232563A8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='8' height='8' rx='2'/%3E%3Crect x='13' y='3' width='8' height='8' rx='2'/%3E%3Crect x='3' y='13' width='8' height='8' rx='2'/%3E%3Crect x='13' y='13' width='8' height='8' rx='2'/%3E%3C/svg%3E");
+      }
+
+      a[href="#process"].nav__menu-link::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232563A8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3C/svg%3E");
+      }
+
+      a[href="#reviews"].nav__menu-link::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232563A8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'/%3E%3C/svg%3E");
+      }
+
+      a[href="#faq"].nav__menu-link::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232563A8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 8v1.5a2.5 2.5 0 0 1 0 5'/%3E%3Ccircle cx='12' cy='17.5' r='.5' fill='%232563A8'/%3E%3C/svg%3E");
+      }
+
+      .nav__menu-link:hover,
+      .nav__menu-link:active {
+        background-color: rgba(37, 99, 168, 0.07);
+        color: var(--color-btn);
+      }
+
+      .nav__menu-link:hover::before {
+        background-color: rgba(37, 99, 168, 0.15);
       }
 
       .nav__menu-link::after { display: none; }
+
+      /* CTA-кнопка внутри меню */
+      .nav__menu-cta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 8px;
+        padding: 15px;
+        border-radius: 12px;
+        background-color: var(--color-btn);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.01em;
+        transition: background-color var(--transition-fast);
+      }
+
+      .nav__menu-cta:hover {
+        background-color: var(--color-btn-hover);
+      }
 
       .nav__burger {
         display: flex;
@@ -588,10 +675,18 @@
       .hero__photo-badge-title { font-size: 12px; }
       .hero__photo-badge-sub   { font-size: 10px; }
 
-      /* Увеличенная тап-зона: ближе к рекомендуемым ~44px */
+      /* Компактная кнопка на мобильном */
       .nav__cta {
-        font-size: 13px;
-        padding: 11px 18px;
+        font-size: 12px;
+        padding: 8px 14px;
+      }
+
+      .nav__logo-name {
+        font-size: 14px;
+      }
+
+      .nav__logo-role {
+        font-size: 9px;
       }
     }
 
@@ -681,9 +776,15 @@
         <li><a href="#process" class="nav__menu-link">Как проходит работа</a></li>
         <li><a href="#reviews" class="nav__menu-link">Отзывы</a></li>
         <li><a href="#faq" class="nav__menu-link">Вопросы</a></li>
+        <li>
+          <a href="https://t.me/daniil_filinkov" class="nav__menu-cta" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M21.5 3L2 10.5l6.5 2.5L17 7l-7 8 7.5 3 4-14.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+            Написать в Telegram
+          </a>
+        </li>
       </ul>
-
-      <a href="https://t.me/daniil_filinkov" class="nav__cta" target="_blank" rel="noopener noreferrer">Написать мне</a>
 
       <button class="nav__burger" id="nav-burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-menu">
         <span class="nav__burger-line"></span>
