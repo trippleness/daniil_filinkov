@@ -161,6 +161,31 @@
       width: 100%;
     }
 
+    /* ── CTA-ССЫЛКА «НАПИСАТЬ В TELEGRAM» (десктоп) ── */
+    .nav__menu-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-btn-text);
+      background-color: var(--color-btn);
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      white-space: nowrap;
+      transition: background-color var(--transition-fast),
+                  transform var(--transition-fast),
+                  box-shadow var(--transition-fast);
+      box-shadow: 0 4px 14px rgba(37, 99, 168, 0.22);
+    }
+
+    .nav__menu-cta:hover {
+      background-color: var(--color-btn-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 168, 0.30);
+    }
+
     /* ── ГАМБУРГЕР (мобильный переключатель) ── */
     .nav__burger {
       display: none;
@@ -594,7 +619,7 @@
       }
 
       a[href="#faq"].nav__menu-link::before {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232563A8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 8v1.5a2.5 2.5 0 0 1 0 5'/%3E%3Ccircle cx='12' cy='17.5' r='.5' fill='%232563A8'/%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232563A8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M9.1 9a3 3 0 0 1 5.82 1c0 2-2.92 2.5-2.92 4'/%3E%3Cline x1='12' y1='17' x2='12' y2='17.01'/%3E%3C/svg%3E");
       }
 
       .nav__menu-link:hover,
@@ -712,10 +737,29 @@
       }
     }
 
-    /* ---------- ПЛАНШЕТ ВЕРТИКАЛЬНО: 768px – 1024px ---------- */
+    /* ---------- ПЛАНШЕТ ВЕРТИКАЛЬНО: 768px – 1024px ----------
+       Как и на мобильном — одна колонка, фото идёт первым,
+       а не двухколоночный layout (он слишком сжимал текст
+       и фото на планшетных пропорциях). */
     @media (min-width: 768px) and (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+      }
+
+      .hero__right {
+        order: -1;
+        padding: clamp(32px, 5vh, 48px) clamp(40px, 6vw, 80px) 0;
+      }
+
       .hero__photo-wrap {
-        max-width: 400px;
+        max-width: 380px;
+        aspect-ratio: 3 / 4;
+        margin: 0 auto;
+      }
+
+      .hero__left {
+        padding: 32px clamp(40px, 6vw, 80px) clamp(48px, 6vh, 72px);
       }
 
       .hero__title {
